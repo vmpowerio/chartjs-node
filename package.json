@@ -1,0 +1,41 @@
+{
+  "name": "priv-chartjs-node",
+  "version": "1.0.3",
+  "description": "Create Chart.js chart images server-side",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmpowerio/chartjs-node.git"
+  },
+  "keywords": [
+    "Chartjs",
+    "Charts",
+    "Plots",
+    "Graphs"
+  ],
+  "author": "sedouard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vmpowerio/chartjs-node/issues"
+  },
+  "homepage": "https://github.com/vmpowerio/chartjs-node#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "canvas": "^1.5.0",
+    "debug": "^2.2.0",
+    "jsdom": "^9.5.0",
+    "stream-buffers": "^3.0.1"
+  },
+  "peerDependencies": {
+    "chart.js": "2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2"
+  }
+}

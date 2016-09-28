@@ -1,0 +1,20 @@
+build:
+  image: sedouard/node-mongo:latest
+  commands:
+    - npm set registry http://10.0.0.5:4873/
+    - npm install
+  environment:
+cache:
+  mount:
+    - node_modules
+    - .git
+publish:
+  npm:
+    username: vmpowerci
+    password: VMPOWER
+    email: support@vmpower.io
+    registry: "http://10.0.0.5:4873"
+    always_auth: true
+    when:
+      branch: master
+
