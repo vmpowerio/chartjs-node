@@ -5,17 +5,24 @@ const fs = BbPromise.promisifyAll(require('fs'));
 const debug = require('debug')('chartjs-node');
 const streamBuffers = require('stream-buffers');
 jsdom.defaultDocumentFeatures = {
-    FetchExternalResources: ["script"],
+    FetchExternalResources: ['script'],
     ProcessExternalResources: true
 };
+
 class ChartjsNode {
     constructor (width, height) {
         this._width = width;
         this._height = height;
     }
+    /**
+     * @returns {Number} the width of the chart/canvas in pixels
+     */
     get width () {
         return this._width;
     }
+    /**
+     * @returns {Number} the height of the chart/canvas in pixels
+     */
     get height () {
         return this._height;
     }
@@ -25,6 +32,11 @@ class ChartjsNode {
         configuration.options.width = this.width;
         configuration.options.height = this.height;
     }
+    /**
+     * Draws the chart given the Chart.js configuration
+     *
+     * @returns {Promise} A promise that will resolve when the chart is completed
+     */
     drawChart (configuration) {
         // ensure we clean up any existing window if drawChart was called more than once.
         this.destroy();
@@ -48,6 +60,12 @@ class ChartjsNode {
             return this._chart;
         });
     }
+    /**
+     * Retrives the drawn chart as a stream
+     *
+     * @param {String} imageType The image type name. Valid values are image/png image/jpeg
+     * @returns {Stream} The image as an in-memory stream
+     */
     getImageStream (imageType) {
         return this.getImageBuffer(imageType)
         .then(buffer => {
@@ -59,20 +77,32 @@ class ChartjsNode {
             return {
                 stream: readableStream,
                 length: buffer.length
-            }; 
-        })
+            };
+        });
     }
+    /**
+     * Retrives the drawn chart as a buffer
+     *
+     * @param {String} imageType The image type name. Valid values are image/png image/jpeg
+     * @returns {Array} The image as an in-memory buffer
+     */
     getImageBuffer (imageType) {
-        return new BbPromise((resolve, reject) => { 
+        return new BbPromise((resolve, reject) => {
             this._canvas.toBlob((blob, err) => {
                 if (err) {
                     return reject(err);
                 }
                 var buffer = jsdom.blobToBuffer(blob);
-                return resolve(buffer)
+                return resolve(buffer);
             }, imageType);
         });
     }
+    /**
+     * Writes chart to a file
+     *
+     * @param {String} imageType The image type name. Valid values are image/png image/jpeg
+     * @returns {Promise} A promise that resolves when the image is written to a file
+     */
     writeImageToFile (imageType, filePath) {
         return this.getImageBuffer(imageType)
         .then(buffer => {
@@ -80,11 +110,15 @@ class ChartjsNode {
             return out.write(buffer);
         });
     }
+    /**
+     * Destroys the virtual DOM and canvas -- releasing any native resources
+     */
     destroy () {
         if (!this._window) {
             return;
         }
         this._window.close();
+        this._window = undefined;
     }
 }
 module.exports = ChartjsNode;
