@@ -27,7 +27,7 @@ npm install chartjs-node
 ## Creating a Chart
 
 ```js
-const ChartjsNode = require('../index.js');
+const ChartjsNode = require('chartjs-node');
 // 600x600 canvas size
 var chartNode = new ChartjsNode(600, 600);
 return chartNode.drawChart(chartJsOptions)

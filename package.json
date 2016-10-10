@@ -1,6 +1,6 @@
 {
-  "name": "priv-chartjs-node",
-  "version": "1.0.3",
+  "name": "chartjs-node",
+  "version": "1.0.4",
   "description": "Create Chart.js chart images server-side",
   "main": "index.js",
   "directories": {
