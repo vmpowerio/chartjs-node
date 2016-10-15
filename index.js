@@ -40,7 +40,7 @@ class ChartjsNode {
     drawChart (configuration) {
         // ensure we clean up any existing window if drawChart was called more than once.
         this.destroy();
-        return jsdom.envAsync('<html><body><div id="chart-div" style="font-size:12; width:' + this.width + '; height:' + this.height + ';"><canvas id="myChart" width="400" height="400" style="width:400px;height:400px"></canvas>></div></body></html>',
+        return jsdom.envAsync('<html><body><div id="chart-div" style="font-size:12; width:' + this.width + '; height:' + this.height + ';"><canvas id="myChart" width="' + this.width + '" height="' + this.height + '"></canvas>></div></body></html>',
             [])
         .then(window => {
             // these are probably not defined but just to be safe store them
