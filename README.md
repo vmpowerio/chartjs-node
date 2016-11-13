@@ -83,12 +83,8 @@ var chartJsOptions = {
     data: myData,
     options: myOptions
 }
-
 ```
-[ChartJS Plugin Documentation](http://www.chartjs.org/docs/#advanced-usage-creating-plugins)
 
-Read here to see what plugins you can write. In the context of drawing static images, ``beforeDraw`` and/or ``afterDraw`` methods makes most sense to implement.
+[Read here](http://www.chartjs.org/docs/#advanced-usage-creating-plugins) to see what plugins you can write. In the context of drawing static images, ``beforeDraw`` and/or ``afterDraw`` methods makes most sense to implement.
 
-[CanvasRenderingContext2D](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D)
-
-Read here to see which methods are available for the ``ctx`` object.
+[Read here](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D) to see which methods are available for the ``ctx`` object.
