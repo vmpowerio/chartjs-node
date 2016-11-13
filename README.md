@@ -68,7 +68,7 @@ chartNode.destroy();
 
 To use draw plugins, simply use the ``options`` object to add your plugins, like so:
 ```
-var options = {
+var myOptions = {
     plugins: {
         afterDraw: function (chart, easing) {
             var self = chart.config;    /* Configuration object containing type, data, options */
@@ -77,10 +77,17 @@ var options = {
         }
     }
 }
+
+var chartJsOptions = {
+    type: 'pie',
+    data: myData,
+    options: myOptions
+}
+
 ```
 [ChartJS Plugin Documentation](http://www.chartjs.org/docs/#advanced-usage-creating-plugins)
 
-Read here to see what plugins you can write. In this context of drawing static images, the ``beforeDraw`` and ``afterDraw`` method makes most sense to use.
+Read here to see what plugins you can write. In the context of drawing static images, ``beforeDraw`` and/or ``afterDraw`` methods makes most sense to implement.
 
 [CanvasRenderingContext2D](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D)
 
