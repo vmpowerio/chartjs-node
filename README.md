@@ -63,3 +63,25 @@ method to release the native resources or you may leak memory:
 ```
 chartNode.destroy();
 ```
+
+## Adding draw plugins
+
+To use draw plugins, simply use the ``options`` object to add your plugins, like so:
+```
+var options = {
+    plugins: {
+        afterDraw: function (chart, easing) {
+            var self = chart.config;    /* Configuration object containing type, data, options */
+            var ctx = chart.chart.ctx;  /* Canvas context used to draw with */
+            ...
+        }
+    }
+}
+```
+[ChartJS Plugin Documentation](http://www.chartjs.org/docs/#advanced-usage-creating-plugins)
+
+Read here to see what plugins you can write. In this context of drawing static images, the ``beforeDraw`` and ``afterDraw`` method makes most sense to use.
+
+[CanvasRenderingContext2D](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D)
+
+Read here to see which methods are available for the ``ctx`` object.
