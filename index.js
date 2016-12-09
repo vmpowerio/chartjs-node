@@ -49,6 +49,9 @@ class ChartjsNode {
             global.document = window.document;
             global.window = window;
             const Chartjs = require('chart.js');
+            if(configuration.options.plugins) {
+                Chartjs.pluginService.register(configuration.options.plugins);
+            }
             this._window = window;
             debug('got window');
             this._disableDynamicChartjsSettings(configuration);
