@@ -27,13 +27,13 @@
   "homepage": "https://github.com/vmpowerio/chartjs-node#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
-    "canvas": "^1.5.0",
+    "canvas": "1.6.*",
     "debug": "^2.2.0",
-    "jsdom": "^9.5.0",
+    "jsdom": "9.8.*",
     "stream-buffers": "^3.0.1"
   },
   "peerDependencies": {
-    "chart.js": "2.3.0"
+    "chart.js": "2.*.*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

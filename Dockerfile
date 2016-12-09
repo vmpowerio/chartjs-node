@@ -6,8 +6,16 @@ RUN cd $(npm root -g)/npm \
   && npm install fs-extra \
   && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js
 RUN npm install -g grunt-cli mocha-cli
-RUN npm install chart.js
-ADD . ./
+RUN npm install chart.js@2.3.0
+# Output debug logs in test output
+ENV DEBUG=chartjs-node*
+# FILES FOR BUILD
+ADD ./test ./test
+ADD Gruntfile.js ./Gruntfile.js
+ADD ./package.json ./package.json
+ADD ./index.js ./index.js
+ADD ./.jshintrc ./.jshintrc
+ADD ./.jscsrc ./.jscsrc
+# END FILES FOR BUILD
 RUN npm install
-ADD . ./
 CMD grunt test
