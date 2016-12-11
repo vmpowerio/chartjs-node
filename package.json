@@ -1,6 +1,6 @@
 {
   "name": "chartjs-node",
-  "version": "1.0.5",
+  "version": "1.1.1",
   "description": "Create Chart.js chart images server-side",
   "main": "index.js",
   "directories": {
@@ -33,7 +33,7 @@
     "stream-buffers": "^3.0.1"
   },
   "peerDependencies": {
-    "chart.js": "2.*.*"
+    "chart.js": "2.3.*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
