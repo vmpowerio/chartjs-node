@@ -52,6 +52,7 @@ class ChartjsNode {
                         global.CanvasMethodsToDestroy.push(property);
                     }
                 });
+                this._canvasMethodsToDestroy = global.CanvasMethodsToDestroy;
 
                 canvasMethods.forEach(method =>
                     global[method] = window[method]
@@ -131,12 +132,16 @@ class ChartjsNode {
      * Destroys the virtual DOM and canvas -- releasing any native resources
      */
     destroy() {
+
         if (global.CanvasMethodsToDestroy) {
             global.CanvasMethodsToDestroy.forEach((prop) => {
-                global[prop] = undefined;
+                delete global[prop];
             });
         }
-        global.CanvasMethodsToDestroy = undefined;
+        delete this._canvasMethodsToDestroy;
+        delete global.CanvasMethodsToDestroy;
+        delete global.navigator;
+        delete global.CanvasRenderingContext2D;
     }
 }
 module.exports = ChartjsNode;

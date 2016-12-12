@@ -64,7 +64,7 @@ describe('chartjs', function () {
             .then(chartNode => {
                 chartNode.destroy();
                 // check the private _window field to see if it is closed
-                assert(!chartNode._window);
+                assert(!chartNode._canvasMethodsToDestroy);
                 debug('Sucessfully destroyed in-memory window');
             });
         });
