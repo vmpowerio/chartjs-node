@@ -33,7 +33,7 @@
     "stream-buffers": "^3.0.1"
   },
   "peerDependencies": {
-    "chart.js": "2.*.*"
+    "chart.js": "<=2.4.*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
