@@ -44,7 +44,7 @@ function createChart() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero:true
                     }
                 }]
             },
@@ -61,50 +61,50 @@ describe('chartjs', function () {
     describe('#destroy', function () {
         it('should destroy the in-memory window', function () {
             return createChart()
-                .then(chartNode => {
-                    chartNode.destroy();
-                    // check if there are window properties to destroy from node global object
-                    assert(!chartNode._windowPropertiesToDestroy);
-                    debug('Sucessfully destroyed in-memory window properties');
-                });
+            .then(chartNode => {
+                chartNode.destroy();
+                // check if there are window properties to destroy from node global object
+                assert(!chartNode._windowPropertiesToDestroy);
+                debug('Sucessfully destroyed in-memory window properties');
+            });
         });
     });
     describe('#drawChart', function () {
         it('should draw the chart to a file', function () {
             return createChart()
-                .then(chartNode => {
-                    assert.ok(chartNode);
-                    return chartNode.writeImageToFile('image/png', './testimage.png');
-                })
-                .then(() => {
-                    assert(fs.existsSync('./testimage.png'));
-                    // clean up
-                    fs.unlinkSync('./testimage.png');
-                    debug('Sucessfully wrote image to a file');
-                });
+            .then(chartNode => {
+                assert.ok(chartNode);
+                return chartNode.writeImageToFile('image/png', './testimage.png');
+            })
+            .then(() => {
+                assert(fs.existsSync('./testimage.png'));
+                // clean up
+                fs.unlinkSync('./testimage.png');
+                debug('Sucessfully wrote image to a file');
+            });
         });
         it('should draw the chart to a buffer', function () {
             return createChart()
-                .then(chartNode => {
-                    assert.ok(chartNode);
-                    return chartNode.getImageBuffer('image/png');
-                })
-                .then(buffer => {
-                    assert(buffer.length > 1);
-                    assert(buffer instanceof Buffer);
-                    debug('Sucessfully wrote image to a Buffer');
-                });
+            .then(chartNode => {
+                assert.ok(chartNode);
+                return chartNode.getImageBuffer('image/png');
+            })
+            .then(buffer => {
+                assert(buffer.length > 1);
+                assert(buffer instanceof Buffer);
+                debug('Sucessfully wrote image to a Buffer');
+            });
         });
         it('should draw the chart to a stream', function () {
             return createChart()
-                .then(chartNode => {
-                    assert.ok(chartNode);
-                    return chartNode.getImageStream('image/png');
-                })
-                .then(imageStream => {
-                    assert(imageStream.stream instanceof stream.Readable);
-                    debug('Sucessfully wrote image to a Readable stream');
-                });
+            .then(chartNode => {
+                assert.ok(chartNode);
+                return chartNode.getImageStream('image/png');
+            })
+            .then(imageStream => {
+                assert(imageStream.stream instanceof stream.Readable);
+                debug('Sucessfully wrote image to a Readable stream');
+            });
         });
     });
 });

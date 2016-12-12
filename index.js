@@ -124,10 +124,10 @@ class ChartjsNode {
      */
     writeImageToFile(imageType, filePath) {
         return this.getImageBuffer(imageType)
-            .then(buffer => {
-                var out = fs.createWriteStream(filePath);
-                return out.write(buffer);
-            });
+        .then(buffer => {
+            var out = fs.createWriteStream(filePath);
+            return out.write(buffer);
+        });
     }
     /**
      * Destroys the virtual DOM and canvas -- releasing any native resources
