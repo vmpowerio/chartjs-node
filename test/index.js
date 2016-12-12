@@ -8,7 +8,7 @@ const stream = require('stream');
 /**
  * Schedule compute test. Tests a variety of schedules to validate correctness
  */
-function createChart () {
+function createChart() {
     var chartNode = new ChartjsNode(600, 600);
     return chartNode.drawChart({
         type: 'bar',
@@ -44,7 +44,7 @@ function createChart () {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true
                     }
                 }]
             },
@@ -53,58 +53,58 @@ function createChart () {
             }
         }
     })
-    .then(() => {
-        return chartNode;
-    });
+        .then(() => {
+            return chartNode;
+        });
 }
 describe('chartjs', function () {
     describe('#destroy', function () {
         it('should destroy the in-memory window', function () {
             return createChart()
-            .then(chartNode => {
-                chartNode.destroy();
-                // check the private _window field to see if it is closed
-                assert(!chartNode._canvasMethodsToDestroy);
-                debug('Sucessfully destroyed in-memory window');
-            });
+                .then(chartNode => {
+                    chartNode.destroy();
+                    // check if there are window properties to destroy from node global object
+                    assert(!chartNode._windowPropertiesToDestroy);
+                    debug('Sucessfully destroyed in-memory window properties');
+                });
         });
     });
     describe('#drawChart', function () {
         it('should draw the chart to a file', function () {
             return createChart()
-            .then(chartNode => {
-                assert.ok(chartNode);
-                return chartNode.writeImageToFile('image/png', './testimage.png');
-            })
-            .then(() => {
-                assert(fs.existsSync('./testimage.png'));
-                // clean up
-                fs.unlinkSync('./testimage.png');
-                debug('Sucessfully wrote image to a file');
-            });
+                .then(chartNode => {
+                    assert.ok(chartNode);
+                    return chartNode.writeImageToFile('image/png', './testimage.png');
+                })
+                .then(() => {
+                    assert(fs.existsSync('./testimage.png'));
+                    // clean up
+                    fs.unlinkSync('./testimage.png');
+                    debug('Sucessfully wrote image to a file');
+                });
         });
         it('should draw the chart to a buffer', function () {
             return createChart()
-            .then(chartNode => {
-                assert.ok(chartNode);
-                return chartNode.getImageBuffer('image/png');
-            })
-            .then(buffer => {
-                assert(buffer.length > 1);
-                assert(buffer instanceof Buffer);
-                debug('Sucessfully wrote image to a Buffer');
-            });
+                .then(chartNode => {
+                    assert.ok(chartNode);
+                    return chartNode.getImageBuffer('image/png');
+                })
+                .then(buffer => {
+                    assert(buffer.length > 1);
+                    assert(buffer instanceof Buffer);
+                    debug('Sucessfully wrote image to a Buffer');
+                });
         });
         it('should draw the chart to a stream', function () {
             return createChart()
-            .then(chartNode => {
-                assert.ok(chartNode);
-                return chartNode.getImageStream('image/png');
-            })
-            .then(imageStream => {
-                assert(imageStream.stream instanceof stream.Readable);
-                debug('Sucessfully wrote image to a Readable stream');
-            });
+                .then(chartNode => {
+                    assert.ok(chartNode);
+                    return chartNode.getImageStream('image/png');
+                })
+                .then(imageStream => {
+                    assert(imageStream.stream instanceof stream.Readable);
+                    debug('Sucessfully wrote image to a Readable stream');
+                });
         });
     });
 });

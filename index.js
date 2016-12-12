@@ -45,15 +45,16 @@ class ChartjsNode {
                 const canvas = require('canvas');
                 const canvasMethods = ['HTMLCanvasElement'];
 
-                global.CanvasMethodsToDestroy = [];
+                // adding window properties to global (only properties that are not already defined).
+                this._windowPropertiesToDestroy = [];
                 Object.keys(window).forEach(property => {
                     if (typeof global[property] === 'undefined') {
                         global[property] = window[property];
-                        global.CanvasMethodsToDestroy.push(property);
+                        this._windowPropertiesToDestroy.push(property);
                     }
                 });
-                this._canvasMethodsToDestroy = global.CanvasMethodsToDestroy;
 
+                // adding all window.HTMLCanvasElement methods to global.HTMLCanvasElement
                 canvasMethods.forEach(method =>
                     global[method] = window[method]
                 );
@@ -133,13 +134,12 @@ class ChartjsNode {
      */
     destroy() {
 
-        if (global.CanvasMethodsToDestroy) {
-            global.CanvasMethodsToDestroy.forEach((prop) => {
+        if (this._windowPropertiesToDestroy) {
+            this._windowPropertiesToDestroy.forEach((prop) => {
                 delete global[prop];
             });
         }
-        delete this._canvasMethodsToDestroy;
-        delete global.CanvasMethodsToDestroy;
+        delete this._windowPropertiesToDestroy;
         delete global.navigator;
         delete global.CanvasRenderingContext2D;
     }
