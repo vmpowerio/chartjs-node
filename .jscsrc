@@ -58,6 +58,6 @@
     "safeContextKeyword": [
         "self"
     ],
-    "validateIndentation": 4,
+    "validateIndentation": 2,
     "validateQuoteMarks": "'"
 }
