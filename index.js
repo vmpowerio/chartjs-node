@@ -2,7 +2,6 @@
 const BbPromise = require('bluebird');
 const jsdom = BbPromise.promisifyAll(require('jsdom'));
 const fs = BbPromise.promisifyAll(require('fs'));
-const debug = require('debug')('chartjs-node');
 const streamBuffers = require('stream-buffers');
 jsdom.defaultDocumentFeatures = {
   FetchExternalResources: ['script'],
@@ -47,7 +46,6 @@ class ChartjsNode {
         .then(window => {
           // these are probably not defined but just to be safe store them
           const canvas = require('canvas');
-          const canvasMethods = ['HTMLCanvasElement'];
 
           Object.keys(window).forEach(property => {
             if (typeof global[property] === 'undefined') {
@@ -55,8 +53,8 @@ class ChartjsNode {
             }
           });
 
-          global['HTMLCanvasElement'] = window['HTMLCanvasElement']
-          global['CanvasRenderingContext2D'] = canvas.Context2d;
+          global.HTMLCanvasElement = window.HTMLCanvasElement;
+          global.CanvasRenderingContext2D = canvas.Context2d;
 
           const Chartjs = require('chart.js');
           if (configuration.options.plugins) {
