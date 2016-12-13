@@ -42,6 +42,7 @@ class ChartjsNode {
         return jsdom.envAsync('<html><body><div id="chart-div" style="font-size:12; width:' + this.width + '; height:' + this.height + ';"><canvas id="myChart" width="' + this.width + '" height="' + this.height + '"></canvas>></div></body></html>',
             [])
             .then(window => {
+                this._window = window;
                 const canvas = require('canvas');
                 const canvasMethods = ['HTMLCanvasElement'];
 
@@ -49,8 +50,10 @@ class ChartjsNode {
                 this._windowPropertiesToDestroy = [];
                 Object.keys(window).forEach(property => {
                     if (typeof global[property] === 'undefined') {
-                        global[property] = window[property];
-                        this._windowPropertiesToDestroy.push(property);
+                        if (typeof global[property] === 'undefined') {
+                            global[property] = window[property];
+                            this._windowPropertiesToDestroy.push(property);
+                        }
                     }
                 });
 
@@ -87,17 +90,17 @@ class ChartjsNode {
      */
     getImageStream(imageType) {
         return this.getImageBuffer(imageType)
-            .then(buffer => {
-                var readableStream = new streamBuffers.ReadableStreamBuffer({
-                    frequency: 10,       // in milliseconds.
-                    chunkSize: 2048     // in bytes.
-                });
-                readableStream.put(buffer);
-                return {
-                    stream: readableStream,
-                    length: buffer.length
-                };
+        .then(buffer => {
+            var readableStream = new streamBuffers.ReadableStreamBuffer({
+                frequency: 10,       // in milliseconds.
+                chunkSize: 2048     // in bytes.
             });
+            readableStream.put(buffer);
+            return {
+                stream: readableStream,
+                length: buffer.length
+            };
+        });
     }
     /**
      * Retrives the drawn chart as a buffer
@@ -139,6 +142,12 @@ class ChartjsNode {
                 delete global[prop];
             });
         }
+
+        if (this._window) {
+            this._window.close();
+            delete this._window;
+        }
+
         delete this._windowPropertiesToDestroy;
         delete global.navigator;
         delete global.CanvasRenderingContext2D;
