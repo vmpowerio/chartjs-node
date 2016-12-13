@@ -8,7 +8,7 @@ const stream = require('stream');
 /**
  * Schedule compute test. Tests a variety of schedules to validate correctness
  */
-function createChart () {
+function createChart() {
     var chartNode = new ChartjsNode(600, 600);
     return chartNode.drawChart({
         type: 'bar',
@@ -53,9 +53,9 @@ function createChart () {
             }
         }
     })
-    .then(() => {
-        return chartNode;
-    });
+        .then(() => {
+            return chartNode;
+        });
 }
 describe('chartjs', function () {
     describe('#destroy', function () {
@@ -63,9 +63,10 @@ describe('chartjs', function () {
             return createChart()
             .then(chartNode => {
                 chartNode.destroy();
-                // check the private _window field to see if it is closed
+                // check if there are window properties to destroy from node global object
+                assert(!chartNode._windowPropertiesToDestroy);
                 assert(!chartNode._window);
-                debug('Sucessfully destroyed in-memory window');
+                debug('Sucessfully destroyed in-memory window properties');
             });
         });
     });
