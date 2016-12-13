@@ -65,6 +65,7 @@ describe('chartjs', function () {
                 chartNode.destroy();
                 // check if there are window properties to destroy from node global object
                 assert(!chartNode._windowPropertiesToDestroy);
+                assert(!chartNode._window);
                 debug('Sucessfully destroyed in-memory window properties');
             });
         });
