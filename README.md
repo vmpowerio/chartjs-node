@@ -67,7 +67,7 @@ chartNode.destroy();
 ## Adding draw plugins
 
 To use draw plugins, simply use the ``options`` object to add your plugins, like so:
-```
+```js
 var myChartOptions = {
     plugins: {
         afterDraw: function (chart, easing) {
