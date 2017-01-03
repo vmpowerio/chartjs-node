@@ -119,6 +119,22 @@ class ChartjsNode {
             }, imageType);
         });
     }
+     /**
+     * Returns image in the form of Data Url
+     *
+     * @param {String} imageType The image type name. Valid values are image/png image/jpeg
+     * @returns {Promise} A promise that resolves when the image is received in the form of data url
+     */
+        getImageDataUrl(imageType) {
+        return new BbPromise((resolve, reject) => {
+            this._canvas.toDataURL(imageType,(err, img) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(img);
+            });
+        });
+    }
     /**
      * Writes chart to a file
      *
