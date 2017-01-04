@@ -107,5 +107,16 @@ describe('chartjs', function () {
                 debug('Sucessfully wrote image to a Readable stream');
             });
         });
+        it('should return the image as data url', function () {
+            return createChart()
+            .then(chartNode => {
+                assert.ok(chartNode);
+                return chartNode.getImageDataUrl('image/png');
+            })
+            .then(imageData => {
+                assert(imageData.length > 1);
+                debug('Sucessfully wrote image to a Readable stream');
+            });
+        });
     });
 });
