@@ -125,7 +125,7 @@ class ChartjsNode {
      * @param {String} imageType The image type name. Valid values are image/png image/jpeg
      * @returns {Promise} A promise that resolves when the image is received in the form of data url
      */
-        getImageDataUrl(imageType) {
+    getImageDataUrl(imageType) {
         return new BbPromise((resolve, reject) => {
             this._canvas.toDataURL(imageType,(err, img) => {
                 if (err) {
