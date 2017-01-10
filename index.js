@@ -96,6 +96,7 @@ class ChartjsNode {
                 chunkSize: 2048     // in bytes.
             });
             readableStream.put(buffer);
+            readableStream.stop();
             return {
                 stream: readableStream,
                 length: buffer.length

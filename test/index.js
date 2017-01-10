@@ -104,7 +104,22 @@ describe('chartjs', function () {
             })
             .then(imageStream => {
                 assert(imageStream.stream instanceof stream.Readable);
-                debug('Sucessfully wrote image to a Readable stream');
+                var length = imageStream.length;
+                var readLength = 0;
+                return new Promise((resolve, reject) => {
+                    imageStream.stream.on('data', d => {
+                        readLength += d.length;
+                        if (readLength === length) {
+                            debug('Sucessfully wrote image to a Readable stream');
+                            resolve();
+                        }
+                    });
+                    setTimeout(() => {
+                        debug('length: ' + length);
+                        debug('readLength: ' + readLength);
+                        reject('Failed to read complete chart image stream in time');
+                    }, 1000);
+                });
             });
         });
         it('should return the image as data url', function () {
