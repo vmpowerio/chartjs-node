@@ -1,4 +1,4 @@
-![Chartjs Node Header Image](./img/chartjsnode.png)
+[![Chartjs Node Header Image](./img/chartjsnode.png)](http://chartjs-demo.vmpower.io/)
 [![Build Status](https://travis-ci.org/vmpowerio/chartjs-node.svg?branch=master)](https://travis-ci.org/vmpowerio/chartjs-node)
 [![Code Climate](https://codeclimate.com/github/vmpowerio/chartjs-node/badges/gpa.svg)](https://codeclimate.com/github/vmpowerio/chartjs-node)
 
@@ -7,6 +7,8 @@
 A simple library to make it easy to create Chartjs charts in Node.js (server-side).
 
 This library puts together [jsdom](https://github.com/tmpvar/jsdom), [node-canvas](https://github.com/Automattic/node-canvas) and [chartjs](https://github.com/chartjs/Chart.js) to render Chartjs on the server.
+
+**[Live Demo](http://chartjs-demo.vmpower.io)**
 
 ## Getting Started
 
