@@ -38,10 +38,12 @@ return chartNode.drawChart(chartJsOptions)
 
     // get image as png buffer
     return chartNode.getImageBuffer('image/png');
+})
 .then(buffer => {
     Array.isArray(buffer) // => true
     // as a stream
     return chartNode.getImageStream('image/png');
+})
 .then(streamResult => {
     // using the length property you can do things like
     // directly upload the image to s3 by using the
