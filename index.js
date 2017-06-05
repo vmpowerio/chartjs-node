@@ -145,8 +145,14 @@ class ChartjsNode {
     writeImageToFile(imageType, filePath) {
         return this.getImageBuffer(imageType)
         .then(buffer => {
-            var out = fs.createWriteStream(filePath);
-            return out.write(buffer);
+            return new BbPromise((resolve,reject) => {
+                var out = fs.createWriteStream(filePath);
+                out.on('finish', function() {
+                    return resolve(this);
+                });
+                out.write(buffer);
+                out.end();
+            })
         });
     }
     /**
