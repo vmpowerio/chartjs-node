@@ -150,9 +150,12 @@ class ChartjsNode {
                 out.on('finish', function() {
                     return resolve(this);
                 });
+                out.on('error', function(err) {
+                    return reject(err);
+                });
                 out.write(buffer);
                 out.end();
-            })
+            });
         });
     }
     /**
