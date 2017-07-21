@@ -150,7 +150,7 @@ class ChartjsNode {
                 out.on('finish', function () {
                     return resolve();
                 });
-                out.on('error', function (err) {
+                out.on('error', function () {
                     return reject();
                 });
                 out.write(buffer);
