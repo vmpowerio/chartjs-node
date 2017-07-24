@@ -147,10 +147,10 @@ class ChartjsNode {
         .then(buffer => {
             return new BbPromise((resolve,reject) => {
                 var out = fs.createWriteStream(filePath);
-                out.on('finish', function () {
+                out.on('finish', () => {
                     return resolve();
                 });
-                out.on('error', function () {
+                out.on('error', () => {
                     return reject();
                 });
                 out.write(buffer);
