@@ -72,6 +72,16 @@ class ChartjsNode {
                 if (configuration.options.plugins) {
                     Chartjs.pluginService.register(configuration.options.plugins);
                 }
+                if (configuration.options.charts) {
+                    configuration.options.charts.forEach(chart => {
+                        Chartjs.defaults[chart.type] = chart.defaults || {};
+                        if (chart.baseType) {
+                            Chartjs.controllers[chart.type] = Chartjs.controllers[chart.baseType].extend(chart.controller);
+                        } else {
+                            Chartjs.controllers[chart.type] = Chartjs.DatasetController.extend(chart.controller);
+                        }
+                    });
+                }
 
                 this._disableDynamicChartjsSettings(configuration);
                 this._canvas = BbPromise.promisifyAll(window.document.getElementById('myChart'));

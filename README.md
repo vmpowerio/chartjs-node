@@ -86,9 +86,37 @@ var chartJsOptions = {
     type: 'pie',
     data: myChartData,
     options: myChartOptions
-}
+};
 ```
 
-[Read here](http://www.chartjs.org/docs/#advanced-usage-creating-plugins) to see what plugins you can write. In the context of drawing static images, ``beforeDraw`` and/or ``afterDraw`` methods makes most sense to implement.
+[Read here](http://www.chartjs.org/docs/latest/developers/plugins.html) to see what plugins you can write. In the context of drawing static images, ``beforeDraw`` and/or ``afterDraw`` methods makes most sense to implement.
 
 [Read here](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D) to see which methods are available for the ``ctx`` object.
+
+## Adding custom charts
+
+To use custom charts, also use the ``options`` object to add your chart config and controller, like so:
+```js
+var myChartOptions = {
+  charts: [{
+    type: 'custom',
+    baseType: 'bar',
+    controller: {
+     draw: function(ease) {},
+      ...
+    },
+    defaults: {
+      ...
+    },
+  }]
+}
+
+var chartJsOptions = {
+    type: 'custom',
+    data: myChartData,
+    options: myChartOptions
+};
+```
+
+
+[Read here](http://www.chartjs.org/docs/latest/developers/charts.html) to see how to write custom charts.
