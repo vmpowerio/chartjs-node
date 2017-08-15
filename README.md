@@ -74,7 +74,7 @@ You can access and modify the ChartJS reference before a chart is drawn via an e
 
 ```js
 var chartNode = new ChartjsNode(600, 600);
-chartNode.on('beforeDraw', function(Chartjs) {
+chartNode.on('beforeDraw', function (Chartjs) {
 	//Chartjs.defaults
 	//Chartjs.pluginService
 	//Chartjs.scaleService
@@ -121,7 +121,7 @@ var myChartOptions = {
     type: 'custom',
     baseType: 'bar',
     controller: {
-     draw: function(ease) {},
+     draw: function (ease) {},
       ...
     },
     defaults: {
