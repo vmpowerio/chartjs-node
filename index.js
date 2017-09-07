@@ -3,13 +3,13 @@ const BbPromise = require('bluebird');
 const jsdom = BbPromise.promisifyAll(require('jsdom'));
 const fs = BbPromise.promisifyAll(require('fs'));
 const streamBuffers = require('stream-buffers');
-const events = require('events');
+const EventEmitter  = require('events');
 jsdom.defaultDocumentFeatures = {
     FetchExternalResources: ['script'],
     ProcessExternalResources: true
 };
 
-class ChartjsNode extends events.EventEmitter {
+class ChartjsNode extends EventEmitter {
     /**
      * Creates an instance of ChartjsNode.
      * @param {number} width The width of the chart canvas.
