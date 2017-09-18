@@ -92,6 +92,21 @@ describe('chartjs', function () {
                     });
             });
         });
+        describe('beforeDraw event', function () {
+            it('should provide a reference to global Chartjs instance', function () {
+                var Chartjs = null;
+                var chartNode = new ChartjsNode(600, 600);
+                chartNode.on('beforeDraw', function (c) {
+                    Chartjs = c;
+                });
+                return chartNode.drawChart(chartConfig)
+                    .then(() => {
+                        assert.ok(Chartjs);
+                        chartNode.destroy();
+                        debug('Sucessfully emitted beforeDraw event');
+                    });
+            });
+        });
     }
 
     var testPlugin = {

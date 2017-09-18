@@ -68,6 +68,25 @@ method to release the native resources or you may leak memory:
 chartNode.destroy();
 ```
 
+## Global chart reference
+
+You can access and modify the ChartJS reference before a chart is drawn via an event (`beforeDraw`).  ChartjsNode extends [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
+
+```js
+var chartNode = new ChartjsNode(600, 600);
+chartNode.on('beforeDraw', function (Chartjs) {
+	//Chartjs.defaults
+	//Chartjs.pluginService
+	//Chartjs.scaleService
+	//Chartjs.layoutService
+	//Chartjs.helpers
+	//Chartjs.controllers
+	//etc
+});
+chartNode.drawChart(chartJsOptions)	//beforeDraw is called in here
+...
+```
+
 ## Adding draw plugins
 
 To use draw plugins, simply use the ``options`` object to add your plugins, like so:
@@ -102,7 +121,7 @@ var myChartOptions = {
     type: 'custom',
     baseType: 'bar',
     controller: {
-     draw: function(ease) {},
+     draw: function (ease) {},
       ...
     },
     defaults: {
@@ -117,6 +136,5 @@ var chartJsOptions = {
     options: myChartOptions
 };
 ```
-
 
 [Read here](http://www.chartjs.org/docs/latest/developers/charts.html) to see how to write custom charts.

@@ -3,13 +3,20 @@ const BbPromise = require('bluebird');
 const jsdom = BbPromise.promisifyAll(require('jsdom'));
 const fs = BbPromise.promisifyAll(require('fs'));
 const streamBuffers = require('stream-buffers');
+const EventEmitter  = require('events');
 jsdom.defaultDocumentFeatures = {
     FetchExternalResources: ['script'],
     ProcessExternalResources: true
 };
 
-class ChartjsNode {
+class ChartjsNode extends EventEmitter {
+    /**
+     * Creates an instance of ChartjsNode.
+     * @param {number} width The width of the chart canvas.
+     * @param {number} height The height of the chart canvas.
+     */
     constructor(width, height) {
+        super();
         this._width = width;
         this._height = height;
     }
@@ -39,9 +46,15 @@ class ChartjsNode {
     drawChart(configuration) {
         // ensure we clean up any existing window if drawChart was called more than once.
         this.destroy();
-        return jsdom.envAsync('<html><body><div id="chart-div" style="font-size:12; width:' + this.width + '; height:' + this.height + ';"><canvas id="myChart" width="' + this.width + '" height="' + this.height + '"></canvas>></div></body></html>',
-            [])
-            .then(window => {
+        return jsdom.envAsync(
+            `<html>
+                <body>
+                    <div id="chart-div" style="font-size:12; width:${this.width}; height:${this.height};">
+                        <canvas id="myChart" width=${this.width} height=${this.height}></canvas>
+                    </div>
+                </body>
+            </html>`,[]).then(window => {
+
                 this._window = window;
                 const canvas = require('canvas');
                 const canvasMethods = ['HTMLCanvasElement'];
@@ -69,6 +82,7 @@ class ChartjsNode {
                 };
 
                 const Chartjs = require('chart.js');
+                this.emit('beforeDraw', Chartjs);
                 if (configuration.options.plugins) {
                     Chartjs.pluginService.register(configuration.options.plugins);
                 }
