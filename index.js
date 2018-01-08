@@ -98,7 +98,7 @@ class ChartjsNode extends EventEmitter {
                 }
 
                 this._disableDynamicChartjsSettings(configuration);
-                this._canvas = BbPromise.promisifyAll(window.document.getElementById('myChart'));
+                this._canvas = window.document.getElementById('myChart');
                 this._ctx = this._canvas.getContext('2d');
 
                 this._chart = new Chartjs(this._ctx, configuration);
