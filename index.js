@@ -186,6 +186,9 @@ class ChartjsNode extends EventEmitter {
      * Destroys the virtual DOM and canvas -- releasing any native resources
      */
     destroy() {
+        if (this._chart) {
+            this._chart.destroy();
+        }
 
         if (this._windowPropertiesToDestroy) {
             this._windowPropertiesToDestroy.forEach((prop) => {
