@@ -174,8 +174,8 @@ class ChartjsNode extends EventEmitter {
                 out.on('finish', () => {
                     return resolve();
                 });
-                out.on('error', () => {
-                    return reject();
+                out.on('error', err => {
+                    return reject(err);
                 });
                 out.write(buffer);
                 out.end();
