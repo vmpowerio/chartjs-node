@@ -15,10 +15,11 @@ class ChartjsNode extends EventEmitter {
      * @param {number} width The width of the chart canvas.
      * @param {number} height The height of the chart canvas.
      */
-    constructor(width, height) {
+    constructor(width, height, devicePixelRatio) {
         super();
         this._width = width;
         this._height = height;
+        this._devicePixelRatio = devicePixelRatio || 1;
     }
     /**
      * @returns {Number} the width of the chart/canvas in pixels
@@ -55,6 +56,7 @@ class ChartjsNode extends EventEmitter {
                 </body>
             </html>`,[]).then(window => {
 
+                window.devicePixelRatio = this._devicePixelRatio;
                 this._window = window;
                 const canvas = require('canvas');
                 const canvasMethods = ['HTMLCanvasElement'];
