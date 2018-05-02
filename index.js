@@ -77,6 +77,11 @@ class ChartjsNode extends EventEmitter {
                     global[method] = window[method]
                 );
 
+                // canvas 1.x does not export these yet, 2.x does but it's not released yet
+                const bindings = require('canvas/lib/bindings');
+                global.CanvasGradient = bindings.CanvasGradient;
+                global.CanvasPattern = bindings.CanvasPattern;
+
                 global.CanvasRenderingContext2D = canvas.Context2d;
 
                 global.navigator = {
